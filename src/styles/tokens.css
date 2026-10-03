@@ -1,0 +1,52 @@
+:root {
+  /* Palette: Grand Hotel */
+  --color-bubblegum: #f4b6c8;
+  --color-bubblegum-deep: #e58aa8;
+  --color-cashew: #f2e0c4;
+  --color-paper: #fcf6ea;
+  --color-lime: #b9e04b;
+  --color-lime-deep: #5f8a0c;
+  --color-peach: #f6c9a8;
+  --color-mustard: #e6bc4c;
+  --color-burgundy: #6b1d2e;
+  --color-plum: #3a1a33;
+  --color-ink: #1a1218;
+  --color-teal: #1f6b6b;
+  --color-coral: #ff5e57;
+  --color-electric: #7a3cff;
+
+  /* Semantic tokens: components use these, never raw colors */
+  --surface-page: var(--color-cashew);
+  --surface-card: var(--color-paper);
+  --surface-accent: var(--color-bubblegum);
+  --surface-inverse: var(--color-plum);
+  --text: var(--color-ink);
+  --text-muted: #5a4752;
+  --text-inverse: var(--color-paper);
+  --border: var(--color-ink);
+  --focus: var(--color-electric);
+  --success: var(--color-lime);
+  --danger: var(--color-coral);
+
+  /* Typography */
+  --font-display: 'Futura', 'Century Gothic', 'Avenir Next', 'Trebuchet MS',
+    sans-serif;
+  --font-body: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+
+  /* Shape and space */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --border-width: 2.5px;
+  --shadow-chunky: 4px 4px 0 var(--color-ink);
+  --shadow-soft: 0 2px 8px rgb(26 18 24 / 0.15);
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  --nav-height: 68px;
+  --sidebar-width: 264px;
+}
