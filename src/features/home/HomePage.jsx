@@ -31,6 +31,7 @@ export default function HomePage() {
     month: 'long',
     year: 'numeric',
   }).format(now);
+  const title = greetingFor(now.getHours()) + ', ' + settings.displayName;
 
   return (
     <div className="stack">
