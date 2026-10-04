@@ -16,7 +16,7 @@ function Brand() {
 
 function NavItem({ item }) {
   return (
-    <NavLink to={item.path} end={item.path === '/'} className="nav-link">
+    <NavLink to={item.path} e nd={item.path === '/'} className="nav-link">
       <Icon name={item.icon} />
       <span>{item.label}</span>
     </NavLink>
