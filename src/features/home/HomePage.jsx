@@ -3,6 +3,7 @@ import ProgressBar from '../../components/ProgressBar.jsx';
 import ComingSoon from '../../components/ComingSoon.jsx';
 import { useSettings } from '../../hooks/useSettings.js';
 import { useDatabaseStatus } from '../../hooks/useDatabaseStatus.js';
+import { formatDateKey, todayKey } from '../../utils/dates.js';
 
 function greetingFor(hour) {
   if (hour < 12) return 'Good morning';
@@ -24,15 +25,10 @@ export default function HomePage() {
   const [settings] = useSettings();
   const dbStatus = useDatabaseStatus();
 
-  const now = new Date();
-  const dateText = new Intl.DateTimeFormat(undefined, {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  }).format(now);
+    const now = new Date();
+  const dateText = formatDateKey(todayKey(now));
   const title = greetingFor(now.getHours()) + ', ' + settings.displayName;
-
+ 
   return (
     <div className="stack">
       <PageHeader eyebrow={dateText} title={title} />
