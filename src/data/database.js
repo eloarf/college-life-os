@@ -3,21 +3,31 @@ import { DB_NAME, DB_VERSION, runMigrations } from './schema.js';
 
 let dbPromise = null;
 
+function forgetConnection() {
+  dbPromise = null;
+}
+
 /** Opens (and if needed upgrades) the database. Cached after first success. */
 export function getDb() {
   if (!dbPromise) {
-    dbPromise = openDB(DB_NAME, DB_VERSION, {
+    const opening = openDB(DB_NAME, DB_VERSION, {
       upgrade(db, oldVersion, newVersion) {
         runMigrations(db, oldVersion, newVersion);
       },
       blocking() {
-        // Another tab needs to upgrade: close so it isn't stuck waiting
-        dbPromise = null;
+        // Another tab needs a newer database version. Close ours so it can continue.
+        opening.then((db) => db.close()).catch(() => {});
+        forgetConnection();
+      },
+      terminated() {
+        // The browser closed our connection, for example after clearing storage.
+        forgetConnection();
       },
     }).catch((error) => {
-      dbPromise = null; // allow a retry on next call
+      forgetConnection();
       throw error;
     });
+    dbPromise = opening;
   }
   return dbPromise;
 }
