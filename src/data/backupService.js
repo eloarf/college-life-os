@@ -1,6 +1,7 @@
 import { getDb } from './database.js';
 import { STORES_V1, DB_VERSION } from './schema.js';
 import { getSettings, updateSettings } from './settingsStore.js';
+import { notifyDataChanged } from './changeEvents.js';
 import {
   createBackupEnvelope,
   getBackupFilename,
@@ -111,7 +112,7 @@ export async function restoreBackup(backup) {
       error && error.name === 'ConstraintError'
         ? 'two records clash with each other.'
         : (error && error.message) || 'the browser stopped the save.';
-      throw new Error('Restore was stopped and nothing was changed: ' + reason, {
+    throw new Error('Restore was stopped and nothing was changed: ' + reason, {
       cause: error,
     });
   }
@@ -120,6 +121,8 @@ export async function restoreBackup(backup) {
   if (backup.settings) {
     updateSettings(backup.settings);
   }
+  // Tell open screens (Home, University) to reload what was just restored.
+  notifyDataChanged();
   return { shelvesRestored: shelves.length, recordsRestored };
 }
 

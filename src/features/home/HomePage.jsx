@@ -1,9 +1,13 @@
 import PageHeader from '../../components/PageHeader.jsx';
 import ProgressBar from '../../components/ProgressBar.jsx';
-import ComingSoon from '../../components/ComingSoon.jsx';
+import TodayClasses from '../schedule/TodayClasses.jsx';
 import { useSettings } from '../../hooks/useSettings.js';
 import { useDatabaseStatus } from '../../hooks/useDatabaseStatus.js';
 import { formatDateKey, todayKey } from '../../utils/dates.js';
+
+const ELLIPSIS = '…';
+const DOT = '·';
+const DASH = '—';
 
 function greetingFor(hour) {
   if (hour < 12) return 'Good morning';
@@ -13,7 +17,7 @@ function greetingFor(hour) {
 
 function DatabaseStamp({ status }) {
   if (status.state === 'loading') {
-    return <span className="stamp stamp--wait">Checking vault…</span>;
+    return <span className="stamp stamp--wait">{'Checking vault' + ELLIPSIS}</span>;
   }
   if (status.state === 'error') {
     return <span className="stamp stamp--warn">Vault unavailable</span>;
@@ -25,10 +29,10 @@ export default function HomePage() {
   const [settings] = useSettings();
   const dbStatus = useDatabaseStatus();
 
-    const now = new Date();
+  const now = new Date();
   const dateText = formatDateKey(todayKey(now));
   const title = greetingFor(now.getHours()) + ', ' + settings.displayName;
- 
+
   return (
     <div className="stack">
       <PageHeader eyebrow={dateText} title={title} />
@@ -40,21 +44,21 @@ export default function HomePage() {
         </div>
         <ProgressBar value={0} max={100} label="Experience points" />
         <p className="eyebrow" style={{ marginTop: 8 }}>
-          0 / 100 XP · the XP engine arrives in a later chunk
+          {'0 / 100 XP ' + DOT + ' the XP engine arrives in a later chunk'}
         </p>
       </section>
 
       <section className="grid-3" aria-label="Today at a glance">
         <div className="stat">
-          <span className="stat__value">—</span>
+          <span className="stat__value">{DASH}</span>
           <span className="eyebrow">Streak</span>
         </div>
         <div className="stat">
-          <span className="stat__value">—</span>
+          <span className="stat__value">{DASH}</span>
           <span className="eyebrow">Today</span>
         </div>
         <div className="stat">
-          <span className="stat__value">—</span>
+          <span className="stat__value">{DASH}</span>
           <span className="eyebrow">Freezes</span>
         </div>
       </section>
@@ -63,9 +67,7 @@ export default function HomePage() {
         <h2 id="schedule-heading" style={{ marginBottom: 12 }}>
           Today&apos;s schedule
         </h2>
-        <ComingSoon emoji="🎒" title="Your timetable isn't set up yet">
-          Your classes will appear here once the schedule is added.
-        </ComingSoon>
+        <TodayClasses />
       </section>
 
       <section className="card card--pink" aria-labelledby="vault-heading">
@@ -84,7 +86,7 @@ export default function HomePage() {
         {dbStatus.state === 'error' && (
           <p>Could not open local storage: {dbStatus.message}</p>
         )}
-        {dbStatus.state === 'loading' && <p>Opening the database…</p>}
+        {dbStatus.state === 'loading' && <p>{'Opening the database' + ELLIPSIS}</p>}
       </section>
     </div>
   );

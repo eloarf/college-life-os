@@ -1,0 +1,266 @@
+/* ---- Chunk 4A: classes, subjects, timetable, forms ---- */
+
+/* Subject colours. Each class or subject element gets a class like sc--blue,
+   which sets --sc (strong colour for bars and dots) and --sc-soft (pale background). */
+.sc--blue {
+  --sc: #3d7fd9;
+  --sc-soft: #dbe9fb;
+}
+.sc--indigo {
+  --sc: #5b57c9;
+  --sc-soft: #e2e1f7;
+}
+.sc--purple {
+  --sc: #8e4fc4;
+  --sc-soft: #eddcf7;
+}
+.sc--pink {
+  --sc: #e0679a;
+  --sc-soft: #fbdce8;
+}
+.sc--red {
+  --sc: #d6453d;
+  --sc-soft: #fbdcd9;
+}
+.sc--orange {
+  --sc: #ee8b2b;
+  --sc-soft: #fde6cf;
+}
+.sc--yellow {
+  --sc: #d9a91a;
+  --sc-soft: #fbefc2;
+}
+.sc--green {
+  --sc: #4f9a3a;
+  --sc-soft: #dff0d5;
+}
+.sc--teal {
+  --sc: #1f8f8f;
+  --sc-soft: #d2eeee;
+}
+.sc--gray {
+  --sc: #7b7077;
+  --sc-soft: #e6e1e4;
+}
+
+/* Class cards */
+.class-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.class-card {
+  display: flex;
+  background: var(--sc-soft, var(--color-paper));
+  border: var(--border-width) solid var(--border);
+  border-left: 10px solid var(--sc, var(--border));
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.class-card__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3);
+}
+
+.class-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.class-card__title {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.class-card__time {
+  font-weight: 700;
+}
+
+.class-card__meta {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
+.class-card--finished {
+  background: var(--color-paper);
+}
+
+.class-card--cancelled {
+  background: var(--color-paper);
+  border-style: dashed;
+  border-left-style: solid;
+}
+
+.class-card--cancelled .class-card__title,
+.class-card--cancelled .class-card__time {
+  text-decoration: line-through;
+}
+
+.class-card--ongoing {
+  box-shadow: var(--shadow-chunky);
+}
+
+.class-card__badge {
+  flex-shrink: 0;
+}
+
+.next-line {
+  font-weight: 700;
+}
+
+.timetable-day__name {
+  margin-bottom: var(--space-2);
+}
+
+/* Subject list */
+.subject-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.subject-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  border-bottom: 1px dashed rgb(26 18 24 / 0.3);
+}
+
+.subject-row__dot {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  border-radius: 50%;
+  background: var(--sc, var(--border));
+  border: var(--border-width) solid var(--border);
+}
+
+.subject-row__text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.subject-row__instructor {
+  margin-top: 2px;
+}
+
+/* Form pieces */
+fieldset.field {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+fieldset.field legend {
+  padding: 0;
+  margin-bottom: var(--space-1);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.field__error {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #9b1c1c;
+}
+
+.input[aria-invalid='true'] {
+  border-color: #9b1c1c;
+}
+
+textarea.input {
+  resize: vertical;
+}
+
+.color-picker__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.color-swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-paper);
+  border: var(--border-width) solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.color-swatch__dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--sc);
+  border: 2px solid var(--border);
+}
+
+.color-swatch__name {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.color-swatch.is-selected {
+  background: var(--sc-soft);
+  box-shadow: var(--shadow-chunky);
+}
+
+.color-swatch:focus-within,
+.day-chip:focus-within {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.day-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.day-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  min-height: 44px;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-paper);
+  border: var(--border-width) solid var(--border);
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.day-chip.is-selected {
+  background: var(--color-lime);
+  box-shadow: var(--shadow-chunky);
+}
+
+a.button {
+  text-decoration: none;
+}
